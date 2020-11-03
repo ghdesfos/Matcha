@@ -24,33 +24,33 @@
 }
 
 h1 {
-  margin: 10;
+  margin: 10px;
   padding: 0;
   font-size: 1.8em;
 }
 
 h2 {
-  margin: 10;
+  margin: 10px;
   font-size: 1.2em;
 }
 
 header {
   margin: 0;
   padding: 0;
-  box-shadow: 0 2px 4px rgb(31, 25, 25);
-  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 4px #1F1919;
+  background-color: #FFFFFF;
 }
 
 footer {
   margin: 0;
   padding: 0;
-  background-color: rgb(255, 255, 255);
+  background-color: #FFFFFF;
 }
 
 .block-image {
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgb(31, 25, 25);
-  background-color: rgb(255, 255, 255);
+  box-shadow: 0 2px 4px #1F1919;
+  background-color: #FFFFFF;
   margin: auto;
   width: 80%;
   min-width: 500px;
