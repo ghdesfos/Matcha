@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class FeedPersonElement extends Component {
+class FeedPersonElement extends Component<any, any> {
   render() {
     const { name, image } = this.props.personInfo;
 

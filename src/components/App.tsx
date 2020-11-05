@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./App.css";
-import Header from "./Header.tsx";
-import Footer from "./Footer.tsx";
-import Feed from "./Feed.tsx";
+import "../App.css";
+import Header from "./Header";
+import Footer from "./Footer";
+import Feed from "./Feed";
 
 class App extends Component {
   render() {
