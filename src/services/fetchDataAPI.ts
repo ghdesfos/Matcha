@@ -24,9 +24,9 @@ function hydratePeopleFeedInfo(photos: any[]): PersonInfo[] {
 }
 
 /*
-// This function does not work
-// it seems that the function execution finishes and thus peopleFeedInfo returns empty
-// is there a way to do this without an async function?
+// THIS IS THE V1 FUNCTION: with callbacks, returning inside and outside the callbacks
+
+// it seems that the function returns before that the array gets populated
 
 function fetchDataUnsplashAPI(): PersonInfo[] {
   // put it inside a constant file?
@@ -40,16 +40,57 @@ function fetchDataUnsplashAPI(): PersonInfo[] {
   fetch(queryUrlAPI)
     .then((res) => res.json())
     //.then((result) => console.log("mid", hydratePeopleFeedInfo(result)));
-    .then((result) => (peopleFeedInfo = hydratePeopleFeedInfo(result)));
+    .then((result) => {
+      console.log("first", window.performance.now());
+      peopleFeedInfo = hydratePeopleFeedInfo(result);
+
+      // returning here does not work as the function has already returned before...
+      // and when it returns below the array had not been populated...
+      return peopleFeedInfo;
+    });
 
   //manage possible errors, and check the status code before...
 
   //TBD
   console.log("second", peopleFeedInfo);
+  console.log("second", window.performance.now());
 
   return peopleFeedInfo;
 }
+
 */
+
+//THIS IS THE V1 BIS FUNCTION: callbacks but returning a promise
+
+function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
+  // put it inside a constant file?
+  const queryUrlAPI: string =
+    "https://api.unsplash.com/photos?query=person&count=10" +
+    "&client_id=" +
+    process.env["REACT_APP_UNSPLASH_API_TOKEN"];
+
+  let peopleFeedInfo: PersonInfo[] = [];
+
+  return fetch(queryUrlAPI)
+    .then((res) => res.json())
+    .then((result) => {
+      peopleFeedInfo = hydratePeopleFeedInfo(result);
+
+      // it seem that we get here the same behaviour as the async function
+      // at least we return a promise as in the async function
+      // is there a difference?
+      return peopleFeedInfo;
+    });
+  // catch block does not work
+  //    .catch((err) => {
+  //      console.error();
+  //    });
+
+  //manage possible errors, and check the status code before...
+}
+
+/*
+//THIS IS THE V2 FUNCTION: async function
 
 async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
   // put it inside a constant file?
@@ -60,17 +101,16 @@ async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
 
   let peopleFeedInfo: PersonInfo[] = [];
 
-  const res = await fetch(queryUrlAPI);
-  const result = await res.json();
+  try {
+    const res = await fetch(queryUrlAPI);
+    var result = await res.json();
+  } catch (err) {
+    console.error(err);
+  }
 
   peopleFeedInfo = hydratePeopleFeedInfo(result);
-
-  //manage possible errors, and check the status code before...
-
-  //TBD
-  console.log(peopleFeedInfo);
-
   return peopleFeedInfo;
 }
+*/
 
 export default fetchDataUnsplashAPI;

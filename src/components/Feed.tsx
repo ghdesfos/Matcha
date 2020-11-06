@@ -21,10 +21,28 @@ class Feed extends Component<IProps, IState> {
   // not sure how to do here... we cannot update the state with a Promise value it seems...
   // should we pass to fetchDataUnsplashAPI() a callback function to update the state?
   componentDidMount() {
-    let peopleFeedInfo = fetchDataUnsplashAPI();
-    this.setState({
-      peopleFeedInfo: peopleFeedInfo,
+    // VERSION 1
+    let peopleFeedInfo: Array<PersonInfo> = [];
+    fetchDataUnsplashAPI().then((peopleFeedInfo) => {
+      this.setState({
+        peopleFeedInfo: peopleFeedInfo,
+      });
+      console.log("callback time", window.performance.now());
     });
+
+    console.log("code continuation time", window.performance.now());
+
+    // VERSION 2
+    /*  let peopleFeedInfo: Promise<Array<PersonInfo>>;
+    peopleFeedInfo = fetchDataUnsplashAPI();
+    Promise.all([peopleFeedInfo]).then((peopleFeedInfo) => {
+      console.log(peopleFeedInfo);
+
+      this.setState({
+        peopleFeedInfo: peopleFeedInfo[0],
+      });
+    });
+    */
   }
 
   render() {
