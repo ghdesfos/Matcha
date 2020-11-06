@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import "../App.css";
 import Header from "./Header";
 import Footer from "./Footer";
-import Feed from "./Feed";
+import FeedPage from "./FeedPage";
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <Header />
-        <Feed />
+        <FeedPage />
         <Footer />
       </React.Fragment>
     );

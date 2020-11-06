@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { PersonInfo } from "../types";
 
-interface IProps {
+interface FeedPersonElementProps {
   personInfo: PersonInfo;
-  key?: string;
 }
 
-interface IState {}
+interface FeedPersonElementState {}
 
-class FeedPersonElement extends Component<IProps, IState> {
+class FeedPersonElement extends Component<
+  FeedPersonElementProps,
+  FeedPersonElementState
+> {
   render() {
     const { name, image } = this.props.personInfo;
 
