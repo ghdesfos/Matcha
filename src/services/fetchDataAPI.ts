@@ -32,6 +32,8 @@ async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
 
   try {
     const res = await fetch(queryUrlAPI);
+
+    console.log("result", res);
     var result = await res.json();
   } catch (err) {
     console.error(err);
