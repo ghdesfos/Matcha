@@ -3,16 +3,15 @@ import FeedPersonElement from "./FeedPersonElement";
 import fetchDataUnsplashAPI from "../services/fetchDataAPI";
 import { PersonInfo } from "../types";
 
-interface FeedProps {}
+interface FeedPageProps {}
 
-interface FeedState {
+interface FeedPageState {
   personInfoList: Array<PersonInfo>;
 }
 
-class FeedPage extends Component<FeedProps, FeedState> {
-  constructor(props: FeedProps) {
+class FeedPage extends Component<FeedPageProps, FeedPageState> {
+  constructor(props: FeedPageProps) {
     super(props);
-
     this.state = {
       personInfoList: Array<PersonInfo>(),
     };
@@ -23,10 +22,12 @@ class FeedPage extends Component<FeedProps, FeedState> {
       this.setState({
         personInfoList: personInfoList,
       });
+      console.log(this.state);
     });
   }
 
   render() {
+    // We should display some error message if there is no element to display on the feed
     return (
       <div id="feed">
         {this.state.personInfoList.map((person) => (

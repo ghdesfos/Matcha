@@ -19,8 +19,12 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 h1 {
@@ -37,23 +41,24 @@ h2 {
 header {
   margin: 0;
   padding: 0;
-  box-shadow: 0 2px 4px #1F1919;
-  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px #1f1919;
+  background-color: #ffffff;
 }
 
 footer {
   margin: 0;
   padding: 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .block-image {
   border-radius: 10px;
-  box-shadow: 0 2px 4px #1F1919;
-  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px #1f1919;
+  background-color: #ffffff;
   margin: auto;
   width: 80%;
   min-width: 500px;
+  text-align: center;
 }
 
 .block-image p {
@@ -67,4 +72,14 @@ footer {
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
+}
+
+.stars {
+  font-size: 50px;
+}
+
+.stars:hover,
+.clickedStar {
+  color: red;
+  font-weight: bold;
 }
