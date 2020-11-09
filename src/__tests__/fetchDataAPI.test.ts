@@ -1,24 +1,45 @@
 import fetchDataUnsplashAPI from "../services/fetchDataAPI";
 
-// Does not work to mock the return value of fatch as what we should mock is the return of fetch() + .json()...
+function mockGlobalFetch(returnValue: any) {
+  var mockSuccessResponse = returnValue;
+  const mockJsonPromise = Promise.resolve(mockSuccessResponse);
+  const mockFetchPromise = Promise.resolve({
+    json: () => mockJsonPromise,
+  });
+  global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
+}
 
-describe("tests fetchDataUnsplashAPI - normal values returned", () => {
-  test("test = 1", () => {
-    const mockSuccessResponse = [
-      { urls: { small: "abc" } },
-      { urls: { small: "def" } },
+describe("all tests - service fetchDataUnsplashAPI", () => {
+  test("tests fetchDataUnsplashAPI - API returns normal values", async () => {
+    mockGlobalFetch([{ urls: { small: "url1" } }, { urls: { small: "url2" } }]);
+
+    var result = await fetchDataUnsplashAPI();
+    result[0].name = "Emilie";
+    result[1].name = "Emilie";
+
+    const expected = [
+      { name: "Emilie", image: "url1" },
+      { name: "Emilie", image: "url2" },
     ];
-    const mockJsonPromise = Promise.resolve(mockSuccessResponse);
-    const mockFetchPromise = Promise.resolve({
-      json: () => mockJsonPromise,
-    });
-    global.fetch = jest.fn().mockImplementation(() => mockFetchPromise);
 
-    const result = fetchDataUnsplashAPI();
-    expect(result).toBe([]);
+    expect(result).toMatchObject(expected);
   });
 
-  test("tests fetchDataUnsplashAPI - empty array returned", () => {});
+  test("tests fetchDataUnsplashAPI - API returns empty array", async () => {
+    mockGlobalFetch([]);
 
-  test("tests fetchDataUnsplashAPI - non-empty array returned, but missing required fields", () => {});
+    var result = await fetchDataUnsplashAPI();
+    const expected: any[] = [];
+
+    expect(result).toMatchObject(expected);
+  });
+
+  test("tests fetchDataUnsplashAPI - API resturns non-empty array, but with missing required fields", async () => {
+    mockGlobalFetch([{ urls: { large: "url1" } }, { urls: { large: "url2" } }]);
+
+    var result = await fetchDataUnsplashAPI();
+    const expected: any[] = [];
+
+    expect(result).toMatchObject(expected);
+  });
 });

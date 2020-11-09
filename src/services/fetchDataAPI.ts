@@ -1,11 +1,13 @@
 import { PersonInfo } from "../types";
 
-// change the input type based on the information provided by the API?
-// at least check we receive the necessary fields?
-// what should we do in the case where the API returns an empty array?
+let checkAllNecessaryFieldsIncluded = function (photo: any): boolean {
+  if (!photo.urls.small) return false;
+  return true;
+};
 
 function addPersonInfoToArray(peopleFeedInfo: PersonInfo[], photo: any) {
   const possibleNames = ["Sophie", "Jasmine", "Emilie", "Alice"];
+  if (!checkAllNecessaryFieldsIncluded(photo)) return;
   let personInfo: PersonInfo = {
     name: possibleNames[Math.floor(Math.random() * possibleNames.length)],
     image: photo.urls.small,
@@ -32,8 +34,6 @@ async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
 
   try {
     const res = await fetch(queryUrlAPI);
-
-    console.log("result", res);
     var result = await res.json();
   } catch (err) {
     console.error(err);
