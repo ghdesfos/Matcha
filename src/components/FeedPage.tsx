@@ -27,13 +27,18 @@ class FeedPage extends Component<FeedPageProps, FeedPageState> {
 
   render() {
     // We should display some error message if there is no element to display on the feed
-    return (
-      <div id="feed">
-        {this.state.personInfoList.map((person) => (
-          <FeedPersonElement key={person.image} personInfo={person} />
-        ))}
-      </div>
-    );
+    if (this.state.personInfoList.length == 0)
+      // the message below is shown before the state is updated during componentDidUpdate()
+      // is there a way to avoir this?
+      return <p>There is no element to display on the feed</p>;
+    else
+      return (
+        <div id="feed">
+          {this.state.personInfoList.map((person) => (
+            <FeedPersonElement key={person.image} personInfo={person} />
+          ))}
+        </div>
+      );
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import store from "../store";
 import { PersonInfo } from "../types/types";
 import FeedPersonElement from "./FeedPersonElement";
+import { Link } from "react-router-dom";
 
 interface FavoritesPageProps {}
 
@@ -49,14 +50,23 @@ class FavoritesPage extends Component<FavoritesPageProps, FavoritesPageState> {
   }
 
   render() {
-    return (
-      <div id="favorites">
-        <p>This is the favorites page</p>
-        {this.state.personInfoList.map((person) => (
-          <FeedPersonElement key={person.image} personInfo={person} />
-        ))}
-      </div>
-    );
+    if (this.state.personInfoList.length === 0) {
+      return (
+        <p>
+          You've starred no one so far. go back to <Link to="/">Feed</Link> to
+          meet people!
+        </p>
+      );
+    } else {
+      return (
+        <div id="favorites">
+          <p>This is the favorites page</p>
+          {this.state.personInfoList.map((person) => (
+            <FeedPersonElement key={person.image} personInfo={person} />
+          ))}
+        </div>
+      );
+    }
   }
 }
 

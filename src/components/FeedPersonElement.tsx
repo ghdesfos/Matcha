@@ -34,7 +34,7 @@ class FeedPersonElement extends Component<
 
   render() {
     const { name, image } = this.props.personInfo;
-    const classes = "stars " + this.checkIfLiked() ? "clickedStar" : "";
+    const classes = "stars " + (this.checkIfLiked() ? "clickedStar" : "");
 
     return (
       <div className="block-image">

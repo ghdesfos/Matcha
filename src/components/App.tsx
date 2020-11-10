@@ -13,15 +13,6 @@ class App extends Component {
       <Router>
         <Header />
 
-        <ul>
-          <li>
-            <Link to="/">Homepage</Link>
-          </li>
-          <li>
-            <Link to="/favorites">Favorites Page</Link>
-          </li>
-        </ul>
-
         <Route exact path="/" component={FeedPage} />
         <Route path="/favorites" component={FavoritesPage} />
 
