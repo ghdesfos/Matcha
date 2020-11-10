@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "../App.css";
+import "../css/App.css";
 import Header from "./Header";
 import Footer from "./Footer";
 import FeedPage from "./FeedPage";
 import FavoritesPage from "./FavoritesPage";
+import store from "../store";
 
 class App extends Component {
   render() {

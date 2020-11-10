@@ -1,28 +1,27 @@
 import React, { Component } from "react";
 import FeedPersonElement from "./FeedPersonElement";
 import fetchDataUnsplashAPI from "../services/fetchDataAPI";
-import { PersonInfo } from "../types";
+import { PersonInfo } from "../types/types";
 
 interface FeedPageProps {}
 
 interface FeedPageState {
-  personInfoList: Array<PersonInfo>;
+  personInfoList: PersonInfo[];
 }
 
 class FeedPage extends Component<FeedPageProps, FeedPageState> {
   constructor(props: FeedPageProps) {
     super(props);
     this.state = {
-      personInfoList: Array<PersonInfo>(),
+      personInfoList: [],
     };
   }
 
   componentDidMount() {
     fetchDataUnsplashAPI().then((personInfoList) => {
       this.setState({
-        personInfoList: personInfoList,
+        personInfoList,
       });
-      console.log(this.state);
     });
   }
 
