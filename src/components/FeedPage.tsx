@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import FeedPersonElement from "./FeedPersonElement";
 import fetchDataUnsplashAPI from "../services/fetchDataAPI";
 import { PersonInfo } from "../types/types";
+import Loader from "react-loader-spinner";
 
 interface FeedPageProps {}
 
 interface FeedPageState {
+  loading: boolean;
   personInfoList: PersonInfo[];
 }
 
@@ -13,6 +15,7 @@ class FeedPage extends Component<FeedPageProps, FeedPageState> {
   constructor(props: FeedPageProps) {
     super(props);
     this.state = {
+      loading: true,
       personInfoList: [],
     };
   }
@@ -21,15 +24,21 @@ class FeedPage extends Component<FeedPageProps, FeedPageState> {
     fetchDataUnsplashAPI().then((personInfoList) => {
       this.setState({
         personInfoList,
+        loading: false,
       });
     });
   }
 
   render() {
-    // We should display some error message if there is no element to display on the feed
-    if (this.state.personInfoList.length == 0)
-      // the message below is shown before the state is updated during componentDidUpdate()
-      // is there a way to avoir this?
+    const { loading } = this.state;
+
+    if (loading)
+      return (
+        <div className="spinner">
+          <Loader type="Oval" color="#585858" height={50} width={50} />
+        </div>
+      );
+    else if (this.state.personInfoList.length === 0)
       return <p>There is no element to display on the feed</p>;
     else
       return (

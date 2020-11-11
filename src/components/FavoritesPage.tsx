@@ -1,56 +1,42 @@
 import React, { Component } from "react";
-import store from "../store";
 import { PersonInfo } from "../types/types";
 import FeedPersonElement from "./FeedPersonElement";
 import { Link } from "react-router-dom";
+import Loader from "react-loader-spinner";
+import { connect } from "react-redux";
 
-interface FavoritesPageProps {}
+interface FavoritesPageProps {
+  personInfoList: PersonInfo[];
+}
 
 interface FavoritesPageState {
-  unsubscribe: any;
-  personInfoList: PersonInfo[];
+  loading: boolean;
 }
 
 class FavoritesPage extends Component<FavoritesPageProps, FavoritesPageState> {
   constructor(props: FavoritesPageProps) {
     super(props);
 
-    const unsubscribe = store.subscribe(() => {
-      const newState: PersonInfo[] = this.defineNewState();
-      this.setState({ personInfoList: newState });
-    });
-
     this.state = {
-      unsubscribe,
-      personInfoList: [],
+      loading: true,
     };
   }
 
-  defineNewState() {
-    const newState: PersonInfo[] = [];
-    const globalState = store.getState();
-
-    globalState.forEach((elem: any) => {
-      const newStateElem = {
-        name: elem.name,
-        image: elem.imageUrl,
-      };
-      newState.push(newStateElem);
-    });
-    return newState;
-  }
-
   componentDidMount() {
-    const newState: PersonInfo[] = this.defineNewState();
-    this.setState({ personInfoList: newState });
-  }
-
-  componentWillUnmount() {
-    this.state.unsubscribe();
+    this.setState({ loading: false });
   }
 
   render() {
-    if (this.state.personInfoList.length === 0) {
+    const { loading } = this.state;
+
+    if (loading)
+      return (
+        <div className="spinner">
+          <Loader type="Oval" color="#585858" height={50} width={50} />
+        </div>
+      );
+    else if (this.props.personInfoList.length === 0) {
+      console.log("loading spinner - state loading - else if:", loading);
       return (
         <p>
           You've starred no one so far. go back to <Link to="/">Feed</Link> to
@@ -61,7 +47,7 @@ class FavoritesPage extends Component<FavoritesPageProps, FavoritesPageState> {
       return (
         <div id="favorites">
           <p>This is the favorites page</p>
-          {this.state.personInfoList.map((person) => (
+          {this.props.personInfoList.map((person) => (
             <FeedPersonElement key={person.image} personInfo={person} />
           ))}
         </div>
@@ -70,4 +56,16 @@ class FavoritesPage extends Component<FavoritesPageProps, FavoritesPageState> {
   }
 }
 
-export default FavoritesPage;
+function mapStateToProps(state: any) {
+  const personInfoList: PersonInfo[] = [];
+  state.forEach((elem: any) => {
+    const personInfoElem = {
+      name: elem.name,
+      image: elem.imageUrl,
+    };
+    personInfoList.push(personInfoElem);
+  });
+  return { personInfoList };
+}
+
+export default connect(mapStateToProps)(FavoritesPage);

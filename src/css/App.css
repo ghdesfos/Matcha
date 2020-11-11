@@ -54,3 +54,7 @@ footer {
   color: red;
   font-weight: bold;
 }
+
+.spinner {
+  text-align: center;
+}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { PersonInfo } from "../types/types";
-import store from "../store";
-import { likedPhoto, unlikedPhoto } from "../actions";
+import store from "../redux/store";
+import { likedPhoto, unlikedPhoto } from "../redux/actions";
 
 interface FeedPersonElementProps {
   personInfo: PersonInfo;
@@ -19,15 +19,17 @@ class FeedPersonElement extends Component<
     if (targetElement.classList.contains("clickedStar")) {
       targetElement.classList.remove("clickedStar");
       store.dispatch(unlikedPhoto(name, imageUrl));
+      localStorage.setItem("reduxState", JSON.stringify(store.getState()));
     } else {
       targetElement.classList.add("clickedStar");
       store.dispatch(likedPhoto(name, imageUrl));
+      localStorage.setItem("reduxState", JSON.stringify(store.getState()));
     }
   }
 
   checkIfLiked() {
     const globalState = store.getState();
-    return globalState.some((elem) => {
+    return globalState.some((elem: any) => {
       return elem.imageUrl === this.props.personInfo.image;
     });
   }
