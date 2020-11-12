@@ -1,4 +1,4 @@
-import { PersonInfo } from "../types";
+import { PersonInfo } from "../types/types";
 
 const checkAllNecessaryFieldsIncluded = function (photo: any): boolean {
   if (!photo.urls.small) return false;

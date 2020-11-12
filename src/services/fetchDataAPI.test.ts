@@ -1,4 +1,4 @@
-import fetchDataUnsplashAPI from "../services/fetchDataAPI";
+import fetchDataUnsplashAPI from "./fetchDataAPI";
 
 function mockGlobalFetch(returnValue: any) {
   const mockJsonPromise = Promise.resolve(returnValue);
