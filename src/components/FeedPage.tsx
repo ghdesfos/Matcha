@@ -1,53 +1,39 @@
 import React, { Component } from "react";
 import FeedPersonElement from "./FeedPersonElement";
 import fetchDataUnsplashAPI from "../services/fetchDataAPI";
-import { PersonInfo } from "../types/types";
-import Loader from "react-loader-spinner";
+import { PersonInfo } from "../types";
 
-interface FeedPageProps {}
+interface FeedProps {}
 
-interface FeedPageState {
-  loading: boolean;
-  personInfoList: PersonInfo[];
+interface FeedState {
+  personInfoList: Array<PersonInfo>;
 }
 
-class FeedPage extends Component<FeedPageProps, FeedPageState> {
-  constructor(props: FeedPageProps) {
+class FeedPage extends Component<FeedProps, FeedState> {
+  constructor(props: FeedProps) {
     super(props);
+
     this.state = {
-      loading: true,
-      personInfoList: [],
+      personInfoList: Array<PersonInfo>(),
     };
   }
 
   componentDidMount() {
     fetchDataUnsplashAPI().then((personInfoList) => {
       this.setState({
-        personInfoList,
-        loading: false,
+        personInfoList: personInfoList,
       });
     });
   }
 
   render() {
-    const { loading } = this.state;
-
-    if (loading)
-      return (
-        <div className="spinner">
-          <Loader type="Oval" color="#585858" height={50} width={50} />
-        </div>
-      );
-    else if (this.state.personInfoList.length === 0)
-      return <p>There is no element to display on the feed</p>;
-    else
-      return (
-        <div id="feed">
-          {this.state.personInfoList.map((person) => (
-            <FeedPersonElement key={person.image} personInfo={person} />
-          ))}
-        </div>
-      );
+    return (
+      <div id="feed">
+        {this.state.personInfoList.map((person) => (
+          <FeedPersonElement key={person.image} personInfo={person} />
+        ))}
+      </div>
+    );
   }
 }
 

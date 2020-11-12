@@ -14,7 +14,7 @@ module.exports = {
   // extended assertions to Jest
   setupFilesAfterEnv: [
     // comment Ghislain: removed below option as it was not working
-    // "@testing-library/react/cleanup-after-each",
+    //  "@testing-library/react/cleanup-after-each",
     "@testing-library/jest-dom/extend-expect",
   ],
 
