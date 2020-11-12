@@ -18,9 +18,10 @@ function addPersonInfoToArray(peopleFeedInfo: PersonInfo[], photo: any) {
 function hydratePeopleFeedInfo(photos: any[]): PersonInfo[] {
   const peopleFeedInfo: PersonInfo[] = [];
   if (typeof photos !== "undefined")
-    photos.map((photo) => {
-      addPersonInfoToArray(peopleFeedInfo, photo);
-    });
+    console.log("photos", typeof photos, photos);
+  photos.map((photo) => {
+    addPersonInfoToArray(peopleFeedInfo, photo);
+  });
   return peopleFeedInfo;
 }
 
@@ -28,17 +29,17 @@ async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
   const queryUrlAPI: string =
     "https://api.unsplash.com/photos?query=woman&count=10" +
     "&client_id=" +
-    process.env["REACT_APP_UNSPLASH_API_TOKEN"];
+    process.env.REACT_APP_UNSPLASH_API_TOKEN;
 
   try {
     const res = await fetch(queryUrlAPI);
-    var result = await res.json();
+    const result = await res.json();
+    const peopleFeedInfo: PersonInfo[] = hydratePeopleFeedInfo(result);
+    return peopleFeedInfo;
   } catch (err) {
     console.error(err);
+    return [];
   }
-
-  const peopleFeedInfo: PersonInfo[] = hydratePeopleFeedInfo(result);
-  return peopleFeedInfo;
 }
 
 export default fetchDataUnsplashAPI;

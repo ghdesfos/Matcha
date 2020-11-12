@@ -2,7 +2,7 @@ import { createStore } from "redux";
 import { devToolsEnhancer } from "redux-devtools-extension";
 import reducer from "./reducer";
 
-const persistedState = localStorage.getItem("reduxState")
+const persistedState: any = localStorage.getItem("reduxState")
   ? JSON.parse(String(localStorage.getItem("reduxState")))
   : [];
 
