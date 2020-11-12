@@ -17,7 +17,7 @@ describe("all tests - service fetchDataUnsplashAPI", () => {
     result[1].name = "Emilie";
 
     const expected = [
-      { name: "Emilie", image: "url1" },
+      { name: "Emilie", image: /*"url1"*/ "test_should_fail" },
       { name: "Emilie", image: "url2" },
     ];
 
