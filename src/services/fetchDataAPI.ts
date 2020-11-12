@@ -1,6 +1,6 @@
 import { PersonInfo } from "../types/types";
 
-let checkAllNecessaryFieldsIncluded = function (photo: any): boolean {
+const checkAllNecessaryFieldsIncluded = function (photo: any): boolean {
   if (!photo.urls.small) return false;
   return true;
 };
@@ -8,7 +8,7 @@ let checkAllNecessaryFieldsIncluded = function (photo: any): boolean {
 function addPersonInfoToArray(peopleFeedInfo: PersonInfo[], photo: any) {
   const possibleNames = ["Sophie", "Jasmine", "Emilie", "Alice"];
   if (!checkAllNecessaryFieldsIncluded(photo)) return;
-  let personInfo: PersonInfo = {
+  const personInfo: PersonInfo = {
     name: possibleNames[Math.floor(Math.random() * possibleNames.length)],
     image: photo.urls.small,
   };
@@ -30,8 +30,6 @@ async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
     "&client_id=" +
     process.env["REACT_APP_UNSPLASH_API_TOKEN"];
 
-  let peopleFeedInfo: PersonInfo[] = [];
-
   try {
     const res = await fetch(queryUrlAPI);
     var result = await res.json();
@@ -39,7 +37,7 @@ async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
     console.error(err);
   }
 
-  peopleFeedInfo = hydratePeopleFeedInfo(result);
+  const peopleFeedInfo: PersonInfo[] = hydratePeopleFeedInfo(result);
   return peopleFeedInfo;
 }
 
