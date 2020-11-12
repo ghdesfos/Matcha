@@ -26,7 +26,7 @@ function hydratePeopleFeedInfo(photos: any[]): PersonInfo[] {
 
 async function fetchDataUnsplashAPI(): Promise<PersonInfo[]> {
   const queryUrlAPI: string =
-    "https://api.unsplash.com/photos?query=person&count=10" +
+    "https://api.unsplash.com/photos?query=woman&count=10" +
     "&client_id=" +
     process.env["REACT_APP_UNSPLASH_API_TOKEN"];
 
