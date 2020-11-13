@@ -30,7 +30,8 @@ footer {
   background-color: #ffffff;
   margin: auto;
   width: 80%;
-  min-width: 500px;
+  max-width: 800px;
+  min-width: 400px;
   text-align: center;
 }
 
@@ -53,6 +54,7 @@ footer {
 
 .stars:hover,
 .clickedStar {
+  cursor: pointer;
   color: red;
   font-weight: bold;
 }
